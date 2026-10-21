@@ -278,7 +278,7 @@ export default function Home() {
                     />
                   </div>
                   <div className="absolute -bottom-6 -left-10 hidden max-w-[16rem] rounded-2xl border border-border bg-surface/90 px-4 py-3 shadow-xl backdrop-blur md:block lg:-left-14">
-                    <p className="font-mono text-[11px] tracking-[0.18em] text-accent uppercase">Currently</p>
+                    <p className="font-mono text-[11px] tracking-[0.18em] text-accent uppercase">Most recently</p>
                     <p className="mt-1 text-sm leading-snug font-semibold">{currentJob.role}</p>
                     <p className="text-xs text-muted">{currentJob.company}</p>
                   </div>
@@ -578,13 +578,13 @@ export default function Home() {
           title={sections.experience.title}
           intro={sections.experience.intro}
         >
-          {/* Current role */}
+          {/* Most recent role */}
           <article className="reveal relative isolate overflow-hidden rounded-3xl border border-accent/40 bg-surface p-6 sm:p-10">
             <div className="bg-glow absolute inset-0 -z-10 opacity-80" aria-hidden="true" />
             <div className="flex flex-wrap items-center gap-3">
               <span className="inline-flex items-center gap-2 rounded-full bg-accent-soft px-3 py-1 text-xs font-medium text-accent">
                 <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
-                Current role
+                Most recent role
               </span>
               <span className="font-mono text-xs text-muted">{currentJob.period}</span>
             </div>

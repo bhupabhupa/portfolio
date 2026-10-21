@@ -15,8 +15,8 @@ export const profile = {
   resume: "/Bhupendra_Tandel_Resume.pdf",
   photo: "/bhupendra-tandel.jpg",
   about: [
-    "Engineering Manager and Delivery Lead with 17+ years of experience building and delivering enterprise SaaS platforms. For the last 6 years I've been on the founding engineering team at Scitara, helping scale an enterprise laboratory iPaaS for regulated pharma customers from early prototype to a production platform serving 20+ customers.",
-    "I was promoted from Senior Developer to Principal Engineer to Delivery Manager, and now lead a team of 15+ engineers across Agile/Scrum delivery, sprint planning, release management, CI/CD and stakeholder communication.",
+    "Engineering Manager and Delivery Lead with 17+ years of experience building and delivering enterprise SaaS platforms. From 2020 to 2026 I was on the founding engineering team at Scitara, helping scale an enterprise laboratory iPaaS for regulated pharma customers from early prototype to a production platform serving 20+ customers.",
+    "I was promoted from Senior Developer to Principal Engineer to Delivery Manager, leading a team of 15+ engineers across Agile/Scrum delivery, sprint planning, release management, CI/CD and stakeholder communication.",
     "I'm an early adopter of AI-assisted software development (Claude Code, Cursor, GitHub Copilot) across the full SDLC, from architecture and code generation to review, testing and documentation.",
   ],
   languages: ["English", "Hindi", "Marathi"],
@@ -35,7 +35,7 @@ export type Job = {
   period: string;
   context?: string;
   points: string[];
-  /** Highlighted as the current role. */
+  /** Highlighted as the most recent role. */
   current?: boolean;
   /** Promotion path within this company, earliest first. */
   promotions?: string[];
@@ -47,14 +47,14 @@ export const experience: Job[] = [
   {
     role: "Principal Engineer & Delivery Manager",
     company: "Scitara Corporation",
-    period: "Jun 2020 – Present",
+    period: "Jun 2020 – Sep 2026",
     current: true,
     promotions: ["Senior Developer", "Principal Engineer", "Delivery Manager"],
     context:
       "Scitara DLX: enterprise laboratory integration platform (iPaaS) for pharma and life sciences · Remote",
     points: [
       "Core member of the founding engineering team; helped take Scitara DLX from early build to an enterprise platform serving 20+ pharma and life-sciences customers.",
-      "Promoted from Senior Developer to Principal Engineer to Delivery Manager; own end-to-end delivery, sprint and release planning, and roadmap execution for a team of 15+ engineers.",
+      "Promoted from Senior Developer to Principal Engineer to Delivery Manager; owned end-to-end delivery, sprint and release planning, and roadmap execution for a team of 15+ engineers.",
       "Led frontend architecture in React, TypeScript, Redux-Saga and Material UI, including a JSON Forms-driven dynamic form engine powering core configuration workflows.",
       "Built and operated the CI/CD release-candidate pipeline: packaging, versioned tagging and publishing of artifacts and Helm charts to AWS S3 for Kubernetes deployments.",
       "Designed Node.js / Express services and REST APIs for platform features and laboratory instrument integrations.",
@@ -142,7 +142,7 @@ export const projects: Project[] = [
     featured: true,
     metrics: [
       { value: "20+", label: "production customers" },
-      { value: "15+", label: "engineers on the team I lead" },
+      { value: "15+", label: "engineers led" },
     ],
     description:
       "Enterprise laboratory iPaaS connecting instruments and systems for regulated pharma. Grew from prototype to 20+ production customers.",
