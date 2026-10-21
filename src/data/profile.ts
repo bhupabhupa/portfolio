@@ -254,10 +254,29 @@ export type OpenSourceProject = {
   url: string;
   /** Link to an animated demo in the repo (linked, not embedded, to keep the page light). */
   demo?: string;
+  /** Shown as the large lead card. */
+  featured?: boolean;
+  /** Slug of the architecture write-up at /projects/<slug>. */
+  caseStudy?: string;
 };
 
 /** Public repositories on GitHub. Facts come from each repo's own description and README. */
 export const openSource: OpenSourceProject[] = [
+  {
+    name: "labdocs-ai",
+    kind: "code",
+    summary:
+      "A RAG assistant over lab instrument documentation. Answers are grounded in the uploaded manuals, or it says the topic isn't covered instead of guessing.",
+    highlights: [
+      "Answers streamed token by token over SSE, with clickable citations",
+      "Local embeddings (all-MiniLM-L6-v2 via transformers.js) in a SQLite vector store",
+      "Tested prompt-injection guardrail and LLM-mocked tests",
+    ],
+    tags: ["RAG", "Claude", "Node.js", "React", "SSE"],
+    url: "https://github.com/bhupabhupa/labdocs-ai",
+    featured: true,
+    caseStudy: "labdocs-ai",
+  },
   {
     name: "miniflow",
     kind: "code",
@@ -272,19 +291,7 @@ export const openSource: OpenSourceProject[] = [
     tags: ["Node.js", "Redis", "BullMQ", "SQLite", "Docker Compose"],
     url: "https://github.com/bhupabhupa/miniflow",
     demo: "https://github.com/bhupabhupa/miniflow/blob/main/docs/demo.gif",
-  },
-  {
-    name: "labdocs-ai",
-    kind: "code",
-    summary:
-      "A RAG assistant over lab instrument documentation. Answers are grounded in the uploaded manuals, or it says the topic isn't covered instead of guessing.",
-    highlights: [
-      "Answers streamed token by token over SSE, with clickable citations",
-      "Local embeddings (all-MiniLM-L6-v2 via transformers.js) in a SQLite vector store",
-      "Tested prompt-injection guardrail and LLM-mocked tests",
-    ],
-    tags: ["RAG", "Claude", "Node.js", "React", "SSE"],
-    url: "https://github.com/bhupabhupa/labdocs-ai",
+    caseStudy: "miniflow",
   },
   {
     name: "secure-portal",
@@ -299,6 +306,7 @@ export const openSource: OpenSourceProject[] = [
     tags: ["Keycloak", "OIDC", "React", "Express", "Docker Compose"],
     url: "https://github.com/bhupabhupa/secure-portal",
     demo: "https://github.com/bhupabhupa/secure-portal/blob/main/docs/demo.gif",
+    caseStudy: "secure-portal",
   },
   {
     name: "ai-sdlc-playbook",
@@ -345,10 +353,11 @@ export const sections = {
   leadership: { eyebrow: "Leadership", title: "How I lead", intro: "The principles behind how I run teams." },
   work: { eyebrow: "Work", title: "Selected work", intro: "Platforms, pipelines and products I've built or led." },
   openSource: {
-    eyebrow: "Open source",
-    title: "Projects on GitHub",
-    intro: "My own public repositories, each with CI and a README. Inspect the code, tests and docs yourself.",
+    eyebrow: "Hands-on",
+    title: "GenAI & architecture projects",
+    intro: "My own public repositories, each with CI, tests and a README. Every code project has an architecture write-up covering the design decisions and trade-offs.",
     more: "More on GitHub",
+    writeUp: "Read the architecture write-up",
   },
   experience: {
     eyebrow: "Experience",

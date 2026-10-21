@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import type { ReactNode } from "react";
 import { BackToTop } from "@/components/BackToTop";
 import { CopyEmail } from "@/components/CopyEmail";
@@ -33,9 +34,9 @@ import {
 
 const nav = [
   { href: "#about", label: "About" },
+  { href: "#projects", label: "Projects" },
   { href: "#leadership", label: "Leadership" },
   { href: "#work", label: "Work" },
-  { href: "#open-source", label: "Open source" },
   { href: "#experience", label: "Experience" },
   { href: "#skills", label: "Skills" },
   { href: "#contact", label: "Contact" },
@@ -325,6 +326,165 @@ export default function Home() {
           </div>
         </Section>
 
+        {/* ---------- Projects (GitHub) ---------- */}
+        <Section
+          id="projects"
+          eyebrow={sections.openSource.eyebrow}
+          title={sections.openSource.title}
+          intro={sections.openSource.intro}
+        >
+          <div className="grid gap-4 md:grid-cols-2">
+            {openSource
+              .filter((p) => p.kind === "code")
+              .map((p) => {
+                const links = (
+                  <div className="flex flex-wrap items-center gap-x-5 gap-y-1">
+                    {p.caseStudy && (
+                      <Link
+                        href={`/projects/${p.caseStudy}`}
+                        className={p.featured ? `${buttonPrimary} mr-1` : `${textLink} font-semibold`}
+                      >
+                        {p.featured ? sections.openSource.writeUp : "Architecture write-up"}
+                        <ArrowRightIcon className="h-4 w-4" />
+                        <span className="sr-only">: {p.name}</span>
+                      </Link>
+                    )}
+                    <a href={p.url} target="_blank" rel="noopener noreferrer" className={textLink}>
+                      <GitHubIcon className="h-4 w-4" />
+                      Code
+                      <ArrowUpRightIcon className="h-3.5 w-3.5" />
+                      <span className="sr-only">: {p.name} on GitHub (opens in a new tab)</span>
+                    </a>
+                    {p.demo && (
+                      <a href={p.demo} target="_blank" rel="noopener noreferrer" className={textLink}>
+                        <PlayIcon className="h-4 w-4" />
+                        Demo
+                        <span className="sr-only">: {p.name} (animated GIF, opens in a new tab)</span>
+                      </a>
+                    )}
+                  </div>
+                );
+                const highlights = (
+                  <ul className={`space-y-2 leading-6 ${p.featured ? "text-base" : "text-sm"}`}>
+                    {p.highlights.map((h) => (
+                      <li
+                        key={h}
+                        className={`flex gap-2.5 ${p.featured ? "rounded-xl border border-border bg-background/70 px-4 py-3" : ""}`}
+                      >
+                        <CheckIcon className="mt-1 h-4 w-4 shrink-0 text-accent" />
+                        {h}
+                      </li>
+                    ))}
+                  </ul>
+                );
+                const tags = (
+                  <ul className="flex flex-wrap gap-1.5" aria-label="Technologies">
+                    {p.tags.map((t) => (
+                      <Tag key={t}>{t}</Tag>
+                    ))}
+                  </ul>
+                );
+
+                return p.featured ? (
+                  <article
+                    key={p.name}
+                    className="reveal relative isolate grid gap-8 overflow-hidden rounded-3xl border border-accent/40 bg-surface p-6 sm:p-8 md:col-span-2 lg:grid-cols-2 lg:gap-12"
+                  >
+                    <div className="bg-glow absolute inset-0 -z-10" aria-hidden="true" />
+                    <div className="bg-dots absolute inset-0 -z-10 opacity-70" aria-hidden="true" />
+                    <div className="flex flex-col">
+                      <div className="flex items-center gap-3">
+                        <span className="grid h-10 w-10 place-items-center rounded-xl border border-border bg-background text-accent">
+                          <CodeIcon className="h-5 w-5" />
+                        </span>
+                        <span className="rounded-full bg-accent-soft px-2.5 py-0.5 text-xs font-medium text-accent">
+                          GenAI · Featured
+                        </span>
+                      </div>
+                      <h3 className="mt-5 font-mono text-xl font-semibold sm:text-2xl">
+                        <span className="font-normal text-muted">bhupabhupa/</span>
+                        {p.name}
+                      </h3>
+                      <p className="mt-3 text-base leading-7 text-muted">{p.summary}</p>
+                      <div className="mt-6">{tags}</div>
+                      <div className="mt-8 lg:mt-auto lg:pt-8">{links}</div>
+                    </div>
+                    <div className="self-center">{highlights}</div>
+                  </article>
+                ) : (
+                  <article key={p.name} className="reveal flex flex-col rounded-2xl border border-border bg-surface p-6">
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="grid h-10 w-10 place-items-center rounded-xl border border-border bg-background text-accent">
+                        <CodeIcon className="h-5 w-5" />
+                      </span>
+                      <span className="rounded-full border border-border-strong px-2.5 py-0.5 font-mono text-xs text-muted">
+                        Code
+                      </span>
+                    </div>
+                    <h3 className="mt-5 font-mono text-lg font-semibold">
+                      <span className="font-normal text-muted">bhupabhupa/</span>
+                      {p.name}
+                    </h3>
+                    <p className="mt-2 text-sm leading-6 text-muted">{p.summary}</p>
+                    <div className="mt-4 flex-1">{highlights}</div>
+                    <div className="mt-5">{tags}</div>
+                    <div className="mt-4 border-t border-border pt-3">{links}</div>
+                  </article>
+                );
+              })}
+          </div>
+
+          {openSource
+            .filter((p) => p.kind === "guide")
+            .map((p) => (
+              <article
+                key={p.name}
+                className="reveal relative isolate mt-4 grid gap-6 overflow-hidden rounded-2xl border border-dashed border-accent/50 bg-accent-soft/25 p-6 sm:p-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:gap-10"
+              >
+                <div>
+                  <div className="flex items-center gap-3">
+                    <span className="grid h-10 w-10 place-items-center rounded-xl bg-accent text-background">
+                      <BookIcon className="h-5 w-5" />
+                    </span>
+                    <span className="rounded-full bg-accent-soft px-2.5 py-0.5 font-mono text-xs text-accent">
+                      Guide · Writing
+                    </span>
+                  </div>
+                  <h3 className="mt-5 font-mono text-lg font-semibold">
+                    <span className="font-normal text-muted">bhupabhupa/</span>
+                    {p.name}
+                  </h3>
+                  <p className="mt-2 text-base leading-7 text-muted">{p.summary}</p>
+                  <a href={p.url} target="_blank" rel="noopener noreferrer" className={`${textLink} mt-3`}>
+                    Read the playbook
+                    <ArrowUpRightIcon className="h-3.5 w-3.5" />
+                    <span className="sr-only"> on GitHub (opens in a new tab)</span>
+                  </a>
+                </div>
+                <ul className="space-y-3 self-center text-sm leading-6">
+                  {p.highlights.map((h) => (
+                    <li key={h} className="flex gap-2.5 rounded-xl border border-border bg-surface px-4 py-3">
+                      <CheckIcon className="mt-1 h-4 w-4 shrink-0 text-accent" />
+                      {h}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+
+          <a
+            href={profile.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`${buttonGhost} mt-8`}
+          >
+            <GitHubIcon className="h-4 w-4" />
+            {sections.openSource.more}
+            <ArrowUpRightIcon className="h-3.5 w-3.5" />
+            <span className="sr-only">(opens in a new tab)</span>
+          </a>
+        </Section>
+
         {/* ---------- How I lead ---------- */}
         <Section
           id="leadership"
@@ -409,114 +569,6 @@ export default function Home() {
               </article>
             ))}
           </div>
-        </Section>
-
-        {/* ---------- Open source ---------- */}
-        <Section
-          id="open-source"
-          eyebrow={sections.openSource.eyebrow}
-          title={sections.openSource.title}
-          intro={sections.openSource.intro}
-        >
-          <div className="grid gap-4 lg:grid-cols-3">
-            {openSource
-              .filter((p) => p.kind === "code")
-              .map((p) => (
-                <article key={p.name} className="reveal flex flex-col rounded-2xl border border-border bg-surface p-6">
-                  <div className="flex items-center justify-between gap-3">
-                    <span className="grid h-10 w-10 place-items-center rounded-xl border border-border bg-background text-accent">
-                      <CodeIcon className="h-5 w-5" />
-                    </span>
-                    <span className="rounded-full border border-border-strong px-2.5 py-0.5 font-mono text-xs text-muted">
-                      Code
-                    </span>
-                  </div>
-                  <h3 className="mt-5 font-mono text-lg font-semibold">
-                    <span className="font-normal text-muted">bhupabhupa/</span>
-                    {p.name}
-                  </h3>
-                  <p className="mt-2 text-sm leading-6 text-muted">{p.summary}</p>
-                  <ul className="mt-4 flex-1 space-y-2 text-sm leading-6">
-                    {p.highlights.map((h) => (
-                      <li key={h} className="flex gap-2.5">
-                        <CheckIcon className="mt-1 h-4 w-4 shrink-0 text-accent" />
-                        {h}
-                      </li>
-                    ))}
-                  </ul>
-                  <ul className="mt-5 flex flex-wrap gap-1.5" aria-label="Technologies">
-                    {p.tags.map((t) => (
-                      <Tag key={t}>{t}</Tag>
-                    ))}
-                  </ul>
-                  <div className="mt-4 flex flex-wrap gap-x-5 border-t border-border pt-2">
-                    <a href={p.url} target="_blank" rel="noopener noreferrer" className={textLink}>
-                      <GitHubIcon className="h-4 w-4" />
-                      View on GitHub
-                      <ArrowUpRightIcon className="h-3.5 w-3.5" />
-                      <span className="sr-only">: {p.name} (opens in a new tab)</span>
-                    </a>
-                    {p.demo && (
-                      <a href={p.demo} target="_blank" rel="noopener noreferrer" className={textLink}>
-                        <PlayIcon className="h-4 w-4" />
-                        Watch demo
-                        <span className="sr-only">: {p.name} (animated GIF, opens in a new tab)</span>
-                      </a>
-                    )}
-                  </div>
-                </article>
-              ))}
-          </div>
-
-          {openSource
-            .filter((p) => p.kind === "guide")
-            .map((p) => (
-              <article
-                key={p.name}
-                className="reveal relative isolate mt-4 grid gap-6 overflow-hidden rounded-2xl border border-dashed border-accent/50 bg-accent-soft/25 p-6 sm:p-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:gap-10"
-              >
-                <div>
-                  <div className="flex items-center gap-3">
-                    <span className="grid h-10 w-10 place-items-center rounded-xl bg-accent text-background">
-                      <BookIcon className="h-5 w-5" />
-                    </span>
-                    <span className="rounded-full bg-accent-soft px-2.5 py-0.5 font-mono text-xs text-accent">
-                      Guide · Writing
-                    </span>
-                  </div>
-                  <h3 className="mt-5 font-mono text-lg font-semibold">
-                    <span className="font-normal text-muted">bhupabhupa/</span>
-                    {p.name}
-                  </h3>
-                  <p className="mt-2 text-base leading-7 text-muted">{p.summary}</p>
-                  <a href={p.url} target="_blank" rel="noopener noreferrer" className={`${textLink} mt-3`}>
-                    Read the playbook
-                    <ArrowUpRightIcon className="h-3.5 w-3.5" />
-                    <span className="sr-only"> on GitHub (opens in a new tab)</span>
-                  </a>
-                </div>
-                <ul className="space-y-3 self-center text-sm leading-6">
-                  {p.highlights.map((h) => (
-                    <li key={h} className="flex gap-2.5 rounded-xl border border-border bg-surface px-4 py-3">
-                      <CheckIcon className="mt-1 h-4 w-4 shrink-0 text-accent" />
-                      {h}
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            ))}
-
-          <a
-            href={profile.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`${buttonGhost} mt-8`}
-          >
-            <GitHubIcon className="h-4 w-4" />
-            {sections.openSource.more}
-            <ArrowUpRightIcon className="h-3.5 w-3.5" />
-            <span className="sr-only">(opens in a new tab)</span>
-          </a>
         </Section>
 
         {/* ---------- Experience ---------- */}
